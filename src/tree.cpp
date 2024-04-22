@@ -9,7 +9,7 @@ Tree::~Tree() {
 std::vector<int> Tree::preOrder() {
     std::vector<int> result;
     if(_root == nullptr) {
-        return;
+        return result;
     }
     _root->preOrder(&result);
     return result;
@@ -18,7 +18,7 @@ std::vector<int> Tree::preOrder() {
 std::vector<int> Tree::inOrder() {
     std::vector<int> result;
     if(_root == nullptr) {
-        return;
+        return result;
     }
     _root->inOrder(&result);
     return result;
@@ -27,7 +27,7 @@ std::vector<int> Tree::inOrder() {
 std::vector<int> Tree::postOrder() {
     std::vector<int> result;
     if(_root == nullptr) {
-        return;
+        return result;
     }
     _root->postOrder(&result);
     return result;
