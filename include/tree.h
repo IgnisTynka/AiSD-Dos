@@ -5,7 +5,6 @@
 class Tree{
     private:
         Node *root;
-        std::vector<Node *> nodes;
         Tree();
         ~Tree();
     public:
