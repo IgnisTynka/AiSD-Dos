@@ -4,8 +4,9 @@
 class AVLTree : public Tree
 {
 private:
-    /* data */
+    
 public:
-    AVLTree(/* args */);
+    AVLTree();
     ~AVLTree();
+    void create(std::vector<int> data);
 };
