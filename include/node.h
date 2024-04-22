@@ -8,6 +8,7 @@ private:
 
 public:
     Node(int data);
+    ~Node();	
 
     int getData();
     void setData(int data);
