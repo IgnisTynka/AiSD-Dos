@@ -11,6 +11,14 @@ Node::~Node(){
     delete this->right;
 }
 
+int Node::getData(){
+    return this->data;
+}
+
+void Node::setData(int data){
+    this->data = data;
+}
+
 Node* Node::getLeft(){
     return this->left;
 }
