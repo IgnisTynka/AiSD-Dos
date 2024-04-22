@@ -1,72 +1,109 @@
 #include "../include/tree.h"
+
 #include <iostream>
 
-Tree::Tree(){
-    this->root = nullptr;
+Tree::~Tree() {
+    removeAll();
 }
 
-Node* Tree::getRoot(){
-    return this->root;
+std::vector<int> Tree::preOrder() {
+    std::vector<int> result;
+    if(_root == nullptr) {
+        return result;
+    }
+    _root->preOrder(&result);
+    return result;
 }
 
-void Tree::insert(Node *node, int data){
-    if(node == nullptr){
-        this->root = new Node(data);
-    }else{
-        if(data < node->getData()){
-            if(node->getLeft() == nullptr){
-                node->setLeft(new Node(data));
-            }else{
-                insert(node->getLeft(), data);
-            }
-        }else{
-            if(node->getRight() == nullptr){
-                node->setRight(new Node(data));
-            }else{
-                insert(node->getRight(), data);
-            }
-        } 
+std::vector<int> Tree::inOrder() {
+    std::vector<int> result;
+    if(_root == nullptr) {
+        return result;
+    }
+    _root->inOrder(&result);
+    return result;
+}
+
+std::vector<int> Tree::postOrder() {
+    std::vector<int> result;
+    if(_root == nullptr) {
+        return result;
+    }
+    _root->postOrder(&result);
+    return result;
+}
+
+int Tree::min() {
+    if (_root == nullptr) {
+        throw std::out_of_range("Tree is empty");
+    }
+    return _root->min();
+}
+
+int Tree::max() {
+    if (_root == nullptr) {
+        throw std::out_of_range("Tree is empty");
+    }
+    return _root->max();
+}
+
+void Tree::removeAll() {
+    if (_root != nullptr) {
+        _removeSubtree(_root);
+        _root = nullptr;
     }
 }
 
-void Tree::preOrder(Node* node, std::vector<int> *result){
-    if(node != nullptr){
-        result->push_back(node->getData());
-        preOrder(node->getLeft(), result);
-        preOrder(node->getRight(), result);
+void Tree::Node::preOrder(std::vector<int> *result) {
+    result->push_back(data);
+    if (left != nullptr) {
+        left->preOrder(result);
     }
-
-}
-
-void Tree::inOrder(Node* node, std::vector<int> *result){
-    if(node != nullptr){
-        inOrder(node->getLeft(), result);
-        result->push_back(node->getData());
-        inOrder(node->getRight(), result);
+    if (right != nullptr) {
+        right->preOrder(result);
     }
 }
 
-void Tree::postOrder(Node* node, std::vector<int> *result){
-    if(node != nullptr){
-        postOrder(node->getLeft(), result);
-        result->push_back(node->getData());
-        postOrder(node->getRight(), result);
+void Tree::Node::inOrder(std::vector<int> *result) {
+    if (left != nullptr) {
+        left->inOrder(result);
+    }
+    result->push_back(data);
+    if (right != nullptr) {
+        right->inOrder(result);
     }
 }
 
-void Tree::print(Node *node){   
-}
-
-void Tree::remove(Node *node, int data){
-}
-
-void Tree::removeAll(Node *node){
-    std::vector<int> order;
-    postOrder(node, &order);
-    for(int i = 0; i < order.size(); i++){
-        remove(node, order[i]);
+void Tree::Node::postOrder(std::vector<int> *result) {
+    if (left != nullptr) {
+        left->postOrder(result);
     }
+    if (right != nullptr) {
+        right->postOrder(result);
+    }
+    result->push_back(data);
 }
 
-void Tree::findMinMax(Node *node, int data){
+int Tree::Node::min() {
+    if (left != nullptr) {
+        return left->min();
+    }
+    return data;
+}
+
+int Tree::Node::max() {
+    if (right != nullptr) {
+        return right->max();
+    }
+    return data;
+}
+
+void Tree::_removeSubtree(Node* node) {
+    if (node->left != nullptr) {
+        _removeSubtree(node->left);
+    }
+    if (node->right != nullptr) {
+        _removeSubtree(node->right);
+    }
+    delete node;
 }
