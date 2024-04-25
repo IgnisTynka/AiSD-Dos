@@ -4,18 +4,28 @@
 
 class Tree{
 public:
+    /// Constructor
     virtual ~Tree();
 
-    virtual void insert(int data) = 0;
-    virtual void insertAll(std::vector<int> data) = 0;
+    /// Insert all elements from the vector data into the tree
+    virtual void create(std::vector<int> data) = 0;
+    /// Rebalance the tree
+    virtual void rebalance(int vineHeight) = 0;
 
+    /// Return vector with the tree elements in pre-order
     std::vector<int> preOrder();
+    /// Return vector with the tree elements in in-order
     std::vector<int> inOrder();
+    /// Return vector with the tree elements in post-order
     std::vector<int> postOrder();
+    /// Return the minimum value in the tree
     int min();
+    /// Return the maximum value in the tree
     int max();
 
+    /// Remove the node with data from the tree
     virtual void remove(int data) = 0;
+    /// Remove all nodes from the tree
     void removeAll();
 
 protected:

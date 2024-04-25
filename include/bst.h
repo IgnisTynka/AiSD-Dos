@@ -4,15 +4,24 @@
 
 class BST : public Tree {    
 public:
+    /// Constructor
     BST();
+    /// Destructor
     ~BST();
 
-    virtual void insert(int data) override;
-    virtual void insertAll(std::vector<int> data) override;
+    /// Insert all elements from the vector data into the tree
+    virtual void create(std::vector<int> data) override;
+    /// Rebalance the tree
+    virtual void rebalance(int vineHeight) override;
 
+    /// Remove the node with data from the tree
     virtual void remove(int data) override;
 
 private:
     void _insertValue(Node* node, int data);
-
+    BST::Node* _removeValue(Node* node, int data);
+    BST::Node* _rotateLeft(Node* node);
+    BST::Node* _rotateRight(Node* node);
+    int _vineHeight(Node* &node);
+    void _balance(Node* &node, int count);
 };
