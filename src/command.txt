@@ -4,7 +4,7 @@ Help
 Print
 Remove
 2
-1 6
+3 7
 Print
 Rebalance
 Print
