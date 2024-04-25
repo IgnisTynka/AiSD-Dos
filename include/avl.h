@@ -7,8 +7,9 @@ public:
     AVL();
     ~AVL();
 
-    virtual void insert(int data) override;
-    virtual void insertAll(std::vector<int> data) override;
+    virtual void create(std::vector<int> data) override;
+    /// Rebalance the tree
+    virtual void rebalance() override {}
 
     virtual void remove(int data) override;
 
@@ -22,7 +23,11 @@ protected:
 
 private:
     void _insertValue(AVLNode* node, int data);
-    void _rotateLeft(AVLNode* node);
-    void _rotateRight(AVLNode* node);
+    AVL::AVLNode* _createSubtree(const std::vector<int> &values, int left, int right);
 
+    AVL::AVLNode* _rotateLeft(AVLNode* node);
+    AVL::AVLNode* _rotateRight(AVLNode* node);
+
+    
+    AVL::AVLNode* _removeValue(AVLNode* node, int data);
 };
