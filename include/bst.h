@@ -22,6 +22,9 @@ private:
     BST::Node* _removeValue(Node* node, int data);
     BST::Node* _rotateLeft(Node* node);
     BST::Node* _rotateRight(Node* node);
+    /// Return the height of the tree transformed into a vine
     int _vineHeight(Node* &node);
+    /// Balance the tree using left rotation
     void _balance(Node* &node, int count);
 };
+ 

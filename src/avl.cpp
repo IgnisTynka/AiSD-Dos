@@ -36,9 +36,9 @@ AVL::AVLNode* AVL::_createSubtree(const std::vector<int> &values, int left, int 
     return node;
 }
 
-void AVL::remove(int value) {
-
+void AVL::remove(int data) {
 }
+
 
 AVL::AVLNode* AVL::_rotateRight(AVLNode* node) {
     AVLNode* left = (AVLNode*)node->left;
