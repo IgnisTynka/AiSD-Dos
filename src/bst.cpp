@@ -8,6 +8,7 @@ BST::BST() : Tree() {}
 BST::~BST() {}
 
 void BST::create(std::vector<int> data) {
+    _nodeCount = data.size();
     removeAll();
     for (int i = 0; i < data.size(); i++) {
         if (_root == nullptr) {
@@ -34,10 +35,9 @@ void BST::_insertValue(Node* node, int data) {
     }
 }
 
-void BST::rebalance(int vineHeight) {
-    Node* tempRoot = new Node(0);
+void BST::rebalance() {
     int vh = 0;
-    while (vh  != vineHeight) {
+    while (vh  != _nodeCount) {
         vh = _vineHeight(_root);
     }
 
@@ -53,53 +53,8 @@ void BST::rebalance(int vineHeight) {
 }
 
 void BST::remove(int data) {
+    _nodeCount--;
     _root = _removeValue(_root, data);
-}
-
-BST::Node* BST::_removeValue(Node* node, int data) {
-    if (node == nullptr) {
-        return nullptr;
-    }
-    if (data < node->data) {
-        node->left = _removeValue(node->left, data);
-        return node;
-    } 
-    if (data > node->data) {
-        node->right = _removeValue(node->right, data);
-        return node;
-    } 
-    // Node has one child
-    if (node->left == nullptr && node->right == nullptr) {
-        delete node;
-        return nullptr;
-    } 
-    // Node has one child - right
-    if (node->left == nullptr) {
-        Node* right = node->right;
-        delete node;
-        return right;
-    } 
-    // Node has one child - left
-    if (node->right == nullptr) {
-        Node* left = node->left;
-        delete node;
-        return left;
-    } 
-    // Node has two children
-    Node* min_right = node->right;
-    Node* parent_min = node;
-    while (min_right->left != nullptr) {
-        parent_min = min_right;
-        min_right = min_right->left;
-    }
-    node->data = min_right->data;
-    if (parent_min->left == min_right) {
-        parent_min->left = min_right->right;
-    } else {
-        parent_min->right = min_right->right;
-    }
-    delete min_right;
-    return node;
 }
 
 BST::Node* BST::_rotateLeft(Node* node) {
@@ -151,11 +106,58 @@ void BST::_balance(Node* &node, int count) {
     for (int i = 0; i < count; i++) {
         Node* child = _rotateLeft(scanner);
         if (parent != nullptr) {
-            parent->right = child; // Link parent to the new root of the rotated subtree
+            parent->right = child;
         } else {
-            node = child; // Update root if this is the first rotation
+            node = child;
         }
-        parent = child; // Update parent to the new root of the rotated subtree
-        scanner = child->right; // Move scanner to the next node to be rotated
+        parent = child; 
+        scanner = child->right;
     }
+}
+
+
+BST::Node* BST::_removeValue(Node* node, int data) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+    if (data < node->data) {
+        node->left = _removeValue(node->left, data);
+        return node;
+    } 
+    if (data > node->data) {
+        node->right = _removeValue(node->right, data);
+        return node;
+    } 
+    // Node has one child
+    if (node->left == nullptr && node->right == nullptr) {
+        delete node;
+        return nullptr;
+    } 
+    // Node has one child - right
+    if (node->left == nullptr) {
+        Node* right = node->right;
+        delete node;
+        return right;
+    } 
+    // Node has one child - left
+    if (node->right == nullptr) {
+        Node* left = node->left;
+        delete node;
+        return left;
+    } 
+    // Node has two children
+    Node* min_right = node->right;
+    Node* parent_min = node;
+    while (min_right->left != nullptr) {
+        parent_min = min_right;
+        min_right = min_right->left;
+    }
+    node->data = min_right->data;
+    if (parent_min->left == min_right) {
+        parent_min->left = min_right->right;
+    } else {
+        parent_min->right = min_right->right;
+    }
+    delete min_right;
+    return node;
 }

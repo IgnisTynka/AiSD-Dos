@@ -9,7 +9,7 @@ public:
 
     virtual void create(std::vector<int> data) override;
     /// Rebalance the tree
-    virtual void rebalance(int vineHeight) override {}
+    virtual void rebalance() override;
 
     virtual void remove(int data) override;
 
@@ -27,7 +27,7 @@ private:
 
     AVL::AVLNode* _rotateLeft(AVLNode* node);
     AVL::AVLNode* _rotateRight(AVLNode* node);
+    int _getBalance(AVLNode* node);
 
-    
-    // AVL::AVLNode* _removeValue(AVLNode* node, int data){}
+    AVL::AVLNode* _removeValue(AVLNode* node, int data);
 };

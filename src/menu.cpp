@@ -59,19 +59,17 @@ void menu(Tree* tree) {
             }
             std::cout << std::endl;
         } else if (action == "Remove") {
-            int rem_nodes;
             std::cout << "nodes> ";
-            std::cin >> rem_nodes;
-            std::cout << rem_nodes << std::endl;
+            std::cin >> nodes;
+            std::cout << nodes << std::endl;
             std::cout << "delete> ";
-            for (int i = 0; i < rem_nodes; i++) {
+            for (int i = 0; i < nodes; i++) {
                 int value;
                 std::cin >> value;
                 tree->remove(value);
                 std::cout << value << " ";
             }
             std::cout << "\nNodes succcesfylly removed" << std::endl;
-            nodes -= rem_nodes;
 
         } else if (action == "FindMinMax") {
             int min = tree->min();
@@ -84,7 +82,7 @@ void menu(Tree* tree) {
             std::cout << "Tree succesfully removed" << std::endl;
 
         } else if (action == "Rebalance") {
-            tree->rebalance(nodes);
+            tree->rebalance();
             std::cout << "Tree succesfully rebalanced" << std::endl;
 
         } else if (action == "Exit") {
