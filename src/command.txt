@@ -1,7 +1,14 @@
-7
-1 2 3 6 5 4 7
+9
+1 2 3 6 8 5 4 0 7 
 Help
 Print
+Remove
+2
+1 6
+Print
 Rebalance
+Print
+FindMinMax
+Delete 
 Print
 Exit

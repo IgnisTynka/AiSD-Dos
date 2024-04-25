@@ -10,7 +10,7 @@ public:
     /// Insert all elements from the vector data into the tree
     virtual void create(std::vector<int> data) = 0;
     /// Rebalance the tree
-    virtual void rebalance(int vineHeight) = 0;
+    virtual void rebalance() = 0;
 
     /// Return vector with the tree elements in pre-order
     std::vector<int> preOrder();
@@ -46,6 +46,7 @@ protected:
     };
 
     Node* _root;
+    int _nodeCount = 0;
 
 private:
     void _removeSubtree(Node* node);

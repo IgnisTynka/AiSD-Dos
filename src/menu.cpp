@@ -33,7 +33,6 @@ void menu(Tree* tree) {
             std::cout << "FindMinMax \t Find the minimum and maximum values of the tree" << std::endl;
             std::cout << "Remove \t\t Remove elements of the tree" << std::endl;
             std::cout << "Delete \t\t Delete whole tree" << std::endl;
-            std::cout << "Export \t\t Export the tree to tickzpicture" << std::endl;
             std::cout << "Rebalance \t Rebalance the tree" << std::endl;
             std::cout << "Exit \t\t Exits the program (same as ctrl+D)" << std::endl;
         } else if (action == "Print") {
@@ -60,16 +59,17 @@ void menu(Tree* tree) {
             }
             std::cout << std::endl;
         } else if (action == "Remove") {
-            int rem_nodes;
             std::cout << "nodes> ";
-            std::cin >> rem_nodes;
-            std::cout << rem_nodes << std::endl;
-            for (int i = 0; i < rem_nodes; i++) {
+            std::cin >> nodes;
+            std::cout << nodes << std::endl;
+            std::cout << "delete> ";
+            for (int i = 0; i < nodes; i++) {
                 int value;
                 std::cin >> value;
                 tree->remove(value);
                 std::cout << value << " ";
             }
+            std::cout << "\nNodes succcesfylly removed" << std::endl;
 
         } else if (action == "FindMinMax") {
             int min = tree->min();
@@ -80,9 +80,13 @@ void menu(Tree* tree) {
         } else if (action == "Delete") {
             tree->removeAll();
             std::cout << "Tree succesfully removed" << std::endl;
+
         } else if (action == "Rebalance") {
-            tree->rebalance(nodes);
+            tree->rebalance();
+            std::cout << "Tree succesfully rebalanced" << std::endl;
+
         } else if (action == "Exit") {
+            std::cout << "Exiting..." << std::endl;
             return;
         } else {
             std::cout << "Invalid action" << std::endl;
