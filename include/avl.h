@@ -28,6 +28,8 @@ private:
     AVL::AVLNode* _rotateLeft(AVLNode* node);
     AVL::AVLNode* _rotateRight(AVLNode* node);
     int _getBalance(AVLNode* node);
+    int _vineHeight(AVLNode*& node);
+    void _balance(AVLNode*& node, int count);
 
     AVL::AVLNode* _removeValue(AVLNode* node, int data);
 };

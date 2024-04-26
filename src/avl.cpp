@@ -37,9 +37,20 @@ AVL::AVLNode* AVL::_createSubtree(const std::vector<int> &values, int left, int 
 }
 
 void AVL::rebalance() {
-    std::vector<int> values = preOrder();
-    removeAll();
-    create(values);
+    // std::vector<int> values = preOrder();
+    // removeAll();
+    // create(values);
+    // int vh = _vineHeight((AVLNode*&)_root);
+    
+    // int h = int(log2(vh + 1));
+    // int m =  pow(2, h) - 1;   
+
+    // _balance((AVLNode*&)_root, vh - m);
+    
+    // while (m > 1) {
+    //     m /= 2;
+    //     _balance((AVLNode*&)_root, m);
+    // }
 }
 
 void AVL::remove(int data) {
@@ -71,6 +82,45 @@ int AVL::_getBalance(AVLNode* node) {
     int leftHeight = (node->left != nullptr) ? ((AVLNode*)node->left)->height : 0;
     int rightHeight = (node->right != nullptr) ? ((AVLNode*)node->right)->height : 0;
     return leftHeight - rightHeight;
+}
+
+int AVL::_vineHeight(AVLNode* &node) {
+    AVLNode* grandParent = nullptr;
+    AVLNode* current = node;
+    int count = 0;
+
+    while (current != nullptr) {
+        if (current->left != nullptr) {
+            Node* oldCurrent = current;
+            current = _rotateRight(current);
+            if (grandParent != nullptr) {
+                grandParent->right = current;
+            } else {
+                node = current;
+            }
+            current->right = oldCurrent;
+        }
+        grandParent = current;
+        current = (AVLNode*)current->right;
+        count++;
+    }
+    return count;
+}
+
+void AVL::_balance(AVLNode* &node, int count) {
+    AVLNode* scanner = node;
+    AVLNode* parent = nullptr;
+
+    for (int i = 0; i < count; i++) {
+        AVLNode* child = _rotateLeft(scanner);
+        if (parent != nullptr) {
+            parent->right = child;
+        } else {
+            node = child; 
+        }
+        parent = child; 
+        scanner = (AVLNode*)child->right; 
+    }
 }
 
 AVL::AVLNode* AVL::_removeValue(AVLNode* node, int data) {
